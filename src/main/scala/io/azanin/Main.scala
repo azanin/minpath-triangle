@@ -12,8 +12,10 @@ object Main extends IOApp {
 
   implicit val orderPath: Order[Path] = (x: Path, y: Path) => x.total.compare(y.total)
 
-  implicit val nodeShow: Show[Node] = (n: Node) => n.toString
-  implicit val showPath: Show[Path] = (t: Path) => s"Minimal path is: ${t.nodes.map(_.show).mkString("+")} = ${t.total}"
+  implicit val nodeShow: Show[Node] = (n: Node) => n.value.toString
+
+  implicit val showPath: Show[Path] = (t: Path) =>
+    s"Minimal path is: ${t.nodes.map(_.show).mkString(" + ")} = ${t.total}"
 
   case class Node(value: Int) extends AnyVal
   case class Path(total: Int, nodes: List[Node])

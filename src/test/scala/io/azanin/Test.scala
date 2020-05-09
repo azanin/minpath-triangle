@@ -1,5 +1,6 @@
 package io.azanin
 
+import cats.implicits._
 import io.azanin.Main.{ Node, Path }
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
@@ -50,6 +51,13 @@ class Test extends AnyFunSuite with Matchers {
     val actual = Main.parseTriangle(input)
 
     actual.isFailure.shouldBe(true)
+  }
+
+  test("path string representation") {
+    val input          = Path(18, List(Node(7), Node(6), Node(3), Node(2)))
+    val expectedResult = "Minimal path is: 7 + 6 + 3 + 2 = 18"
+
+    input.show.shouldBe(expectedResult)
   }
 
 }
