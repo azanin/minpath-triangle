@@ -12,5 +12,5 @@ lazy val root = (project in file("."))
     addCompilerPlugin(betterMonadicFor),
     scalafmtOnCompile := true,
     libraryDependencies ++=
-      Seq(catsEffect, catsEffectScalaTest % Test, scalaTest % Test)
+      Seq(catsEffect, scalaTest % Test)
   )
