@@ -8,7 +8,7 @@ import cats.implicits._
 import scala.io.Source
 import scala.util.Try
 
-object Main extends IOApp {
+object MinPathTriangle extends IOApp {
 
   implicit val orderPath: Order[Path] = (x: Path, y: Path) => x.total.compare(y.total)
 
@@ -20,18 +20,20 @@ object Main extends IOApp {
   case class Node(value: Int) extends AnyVal
   case class Path(total: Int, nodes: List[Node])
 
-  def minPathTriangle(input: List[List[Node]]): List[Path] =
-    input.foldRight(List(): List[Path]) {
-      case (row, paths) =>
-        val couples = paths.zip(paths.drop(1)) //Can't use tail since is throwing exception on empty list
-        row.alignWith(couples) {
-          case Ior.Both(node, (left, right)) =>
-            val chosenPath = left.min(right)
-            Path(chosenPath.total + node.value, node +: chosenPath.nodes)
-          case Ior.Left(node) => Path(node.value, List(node))
-          case _              => Path(0, Nil)
-        }
-    }
+  def minPathTriangle(input: List[List[Node]]): Option[Path] =
+    input
+      .foldRight(List(): List[Path]) {
+        case (row, paths) =>
+          val couples = paths.zip(paths.drop(1)) //Can't use tail since is throwing exception on empty list
+          row.alignWith(couples) {
+            case Ior.Both(node, (left, right)) =>
+              val chosenPath = left.min(right)
+              Path(chosenPath.total + node.value, node +: chosenPath.nodes)
+            case Ior.Left(node) => Path(node.value, List(node))
+            case _              => Path(0, Nil)
+          }
+      }
+      .headOption
 
   def parseTriangle(rows: List[String]): Try[List[List[Node]]] =
     rows.traverse(_.split(" ").toList.traverse(n => Try(Node(n.toInt))))
@@ -43,7 +45,7 @@ object Main extends IOApp {
         for {
           lines    <- IO.delay(bs.getLines().toList)
           triangle <- IO.fromTry(parseTriangle(lines))
-          path     = minPathTriangle(triangle).headOption
+          path     = minPathTriangle(triangle)
           repr     = path.fold("No Path for the specified Triangle")(_.show)
         } yield println(repr)
       }

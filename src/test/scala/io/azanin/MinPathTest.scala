@@ -1,13 +1,13 @@
 package io.azanin
 
 import cats.implicits._
-import io.azanin.Main.{ Node, Path }
+import io.azanin.MinPathTriangle.{ Node, Path }
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
 import scala.util.{ Random, Success }
 
-class Test extends AnyFunSuite with Matchers {
+class MinPathTest extends AnyFunSuite with Matchers {
   test("Correctness of the algorithm") {
 
     val input = List(
@@ -17,8 +17,18 @@ class Test extends AnyFunSuite with Matchers {
       List(Node(11), Node(2), Node(10), Node(9))
     )
 
-    val actual         = Main.minPathTriangle(input)
-    val expectedResult = List(Path(18, List(Node(7), Node(6), Node(3), Node(2))))
+    val actual         = MinPathTriangle.minPathTriangle(input)
+    val expectedResult = Some(Path(18, List(Node(7), Node(6), Node(3), Node(2))))
+
+    actual.shouldBe(expectedResult)
+  }
+
+  test("Correctness of the algorithm with empty triangle") {
+
+    val input = Nil
+
+    val actual         = MinPathTriangle.minPathTriangle(input)
+    val expectedResult = None
 
     actual.shouldBe(expectedResult)
   }
@@ -29,7 +39,7 @@ class Test extends AnyFunSuite with Matchers {
       rows <- 1 to 500
     } yield List.fill(rows)(Node(Random.nextInt(20)))).toList
 
-    val actual = Main.minPathTriangle(input)
+    val actual = MinPathTriangle.minPathTriangle(input)
 
     actual.nonEmpty.shouldBe(true)
   }
@@ -39,7 +49,7 @@ class Test extends AnyFunSuite with Matchers {
     val input          = List("1", "2 3", "4 5 6")
     val expectedResult = Success(List(List(Node(1)), List(Node(2), Node(3)), List(Node(4), Node(5), Node(6))))
 
-    val actual = Main.parseTriangle(input)
+    val actual = MinPathTriangle.parseTriangle(input)
 
     actual.shouldBe(expectedResult)
   }
@@ -48,7 +58,7 @@ class Test extends AnyFunSuite with Matchers {
 
     val input = List("1", "notANumber 3", "4 5 6")
 
-    val actual = Main.parseTriangle(input)
+    val actual = MinPathTriangle.parseTriangle(input)
 
     actual.isFailure.shouldBe(true)
   }
