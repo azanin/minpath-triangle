@@ -19,8 +19,9 @@ object MinPathTriangle extends IOApp {
 
   case class Node(value: Int) extends AnyVal
   case class Path(total: Int, nodes: List[Node])
+  type Triangle = List[List[Node]]
 
-  def minPathTriangle(input: List[List[Node]]): Option[Path] =
+  def minPathTriangle(input: Triangle): Option[Path] =
     input
       .foldRight(List(): List[Path]) {
         case (row, paths) =>
@@ -35,7 +36,7 @@ object MinPathTriangle extends IOApp {
       }
       .headOption
 
-  def parseTriangle(rows: List[String]): Try[List[List[Node]]] =
+  def parseTriangle(rows: List[String]): Try[Triangle] =
     rows.traverse(_.split(" ").toList.traverse(n => Try(Node(n.toInt))))
 
   override def run(args: List[String]): IO[ExitCode] =
