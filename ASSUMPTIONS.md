@@ -1,7 +1,7 @@
 # Assumptions
 
 ## IO interaction
-Since there is the need to read from a file and to interact with the console, I choose to rely on the `cats-effect` library.
+Since there is the need to read from the stdIn and to interact with the stdOut, I choose to rely on the `cats-effect` library.
 
 ### Reading from stdIn
 Using `Resource.fromAutoClosable` ensures that the stdIn will be closed after the usage.
