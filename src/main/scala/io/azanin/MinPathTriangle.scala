@@ -41,7 +41,7 @@ object MinPathTriangle extends IOApp {
 
   override def run(args: List[String]): IO[ExitCode] =
     Resource
-      .fromAutoCloseable(IO.delay(Source.fromFile("data.txt")))
+      .fromAutoCloseable(IO.delay(Source.stdin))
       .use { bs =>
         for {
           lines    <- IO.delay(bs.getLines().toList)

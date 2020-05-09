@@ -3,8 +3,8 @@
 ## IO interaction
 Since there is the need to read from a file and to interact with the console, I choose to rely on the `cats-effect` library.
 
-### Reading from a file
-Using `Resource.fromAutoClosable` ensures that the file will be closed after the usage.
+### Reading from stdIn
+Using `Resource.fromAutoClosable` ensures that the stdIn will be closed after the usage.
 
 ## Parse the triangle
 The triangle must contain numbers and every row contains one more node of the previous one.

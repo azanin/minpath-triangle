@@ -26,4 +26,4 @@ Problem states:
  `sbt test`
  
  ### Run application
- `sbt run`
+ `cat data.txt | sbt run`
