@@ -1,9 +1,9 @@
 package io.azanin
 
-import cats.{ Order, Show }
 import cats.data.Ior
 import cats.effect.{ ExitCode, IO, IOApp, Resource }
 import cats.implicits._
+import cats.{ Order, Show }
 
 import scala.io.Source
 import scala.util.Try
