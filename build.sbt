@@ -7,7 +7,7 @@ ThisBuild / organizationName := "azanin"
 
 lazy val root = (project in file("."))
   .settings(
-    name := "suprnation",
+    name := "minpath-triangle",
     addCompilerPlugin(kindProjector),
     addCompilerPlugin(betterMonadicFor),
     scalafmtOnCompile := true,
