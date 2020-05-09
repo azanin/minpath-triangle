@@ -19,7 +19,7 @@ Problem states:
   In this case, 7+6+3+2 = 18 is the minimal path.*
  
  ## Behaviour
- The application read from a `data.txt` file the triangle and output to the console the result in this form:
+ The application read from the stdIn a `data.txt` contente representing the triangle and output to the console the result in this form:
  *Minimal path is: 7 + 6 + 3 + 2 = 18*
  
  ### Run Tests
